@@ -67,7 +67,7 @@ fn main() {
         }
     };
 
-    println!("{}", cyan.apply_to("Checking if update is needed..."));
+    println!("{}", cyan.apply_to("Checking if any updates are necessary..."));
     let mut updater = amax_updater_client::AmaxUpdateClient::new(blur_path);
     let update_is_required = match updater.perform_update() {
         Ok(update_is_required) => update_is_required,
@@ -76,20 +76,20 @@ fn main() {
                 "{} ({}) {}",
                 error.apply_to("Failure!"),
                 e,
-                "Probably something wrong with internet connection."
+                "Something is probably wrong with your internet connection."
             );
             return;
         }
     };
 
     if !update_is_required {
-        println!("{}", cyan.apply_to("You have the latest version! Exiting"));
+        println!("{}", cyan.apply_to("You have the latest version! Exiting."));
         return;
     }
 
     println!(
         "{}",
-        cyan.apply_to("Update is avalaible! Updating files...")
+        cyan.apply_to("An update is available! Updating files...")
     );
 
     let update_zip_path = updater.temp_path.join("amax_client_files.zip");
@@ -121,7 +121,7 @@ fn main() {
     let _yes = MessageDialog::new()
     .set_type(MessageType::Info)
     .set_title("Amax Emu updater")
-    .set_text("Update was complete!")
+    .set_text("Update was successful!")
     .show_alert()
     .unwrap();
 
@@ -131,7 +131,7 @@ fn main() {
 fn get_blur_path() -> Result<PathBuf> {
     match fs::metadata(Path::new("./UpdateDirectory.txt")) {
         Ok(_) => {
-            info!("Found UpdateDirectory.txt. Running in Blur updater mode");
+            info!("Found UpdateDirectory.txt. Running in Blur updater mode.");
             return Ok(PathBuf::from(
                 String::from_utf8(fs::read(Path::new("./UpdateDirectory.txt")).unwrap())
                     .expect("Failed to process path in UpdateDirectory.txt"),
@@ -148,7 +148,7 @@ fn get_blur_path() -> Result<PathBuf> {
         Err(_) => {}
     }
 
-    warn!("Failed to find Blur installation folder. Please select it manually");
+    warn!("Failed to find Blur installation folder. Please select it manually.");
 
     let path_temp = FileDialog::new().show_open_single_dir().unwrap();
 
@@ -157,5 +157,5 @@ fn get_blur_path() -> Result<PathBuf> {
         None => {}
     };
 
-    Err(anyhow!("Failed to find Blur installation folder. Exiting!"))
+    Err(anyhow!("Failed to find Blur installation folder. Exiting."))
 }
