@@ -1,4 +1,4 @@
-name: Blur-hooks-rs Build
+name: Amax Updater Build
 
 on:
   push:
