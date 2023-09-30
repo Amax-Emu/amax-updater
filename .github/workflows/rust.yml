@@ -16,7 +16,7 @@ jobs:
       uses: actions/checkout@v4
       
     - name: Build release [msvc]
-      run: cargo +nightly build --verbose --release --target=i686-pc-windows-msvc
+      run: cargo build --release --target=i686-pc-windows-msvc
 
     - name: Collect release artifact
       uses: actions/upload-artifact@v3
