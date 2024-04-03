@@ -327,7 +327,7 @@ impl AmaxUpdateClient {
     pub fn apply_update(&mut self) {
         let _ = fs::remove_dir_all(&self.blur_path.join("amax"));
         for file_path in &self.update_files {
-            let _ = fs::rename(
+            let _ = fs::copy(
                 &self.temp_path.join(file_path),
                 &self.blur_path.join(file_path),
             );
